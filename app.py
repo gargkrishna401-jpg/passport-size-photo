@@ -116,8 +116,14 @@ if uploaded_file is not None:
                     # Sharpening
                     output = output.filter(ImageFilter.UnsharpMask(radius=1, percent=200, threshold=3))
                 
-                # Resize to passport size (approx 2:3 ratio, e.g., 400x600)
-                output = output.resize((400, 600), Image.Resampling.LANCZOS)
+                # Resize dynamically to a passport-style portrait ratio based on original image size
+                original_width, original_height = output.size
+                target_width = int(original_height * 2 / 3)
+                target_height = original_height
+                if target_width > original_width:
+                    target_width = original_width
+                    target_height = int(original_width * 3 / 2)
+                output = output.resize((target_width, target_height), Image.Resampling.LANCZOS)
                 
                 # Crop to chest part: crop top 50% to focus on upper body
                 width, height = output.size
