@@ -4,7 +4,7 @@ from PIL import Image, ImageFilter, ImageEnhance, ImageDraw
 import os
 import numpy as np
 
-st.title("Image Processor App")
+
 
 st.write("Upload an image for background removal, passport photo creation, or face enhancement.")
 
